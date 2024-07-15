@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
-Route::middleware(['auth'])
+Route::middleware([])
     ->name('users.')
     ->group(function () {
     Route::get("/users", [UserController::class, 'index'])->name('index');
     Route::get("/users/{user}", [UserController::class, 'show'])->name('show')->whereNumber('user');
-    Route::post("/users/{user}", [UserController::class, 'store'])->name('store');
+    Route::post("/users", [UserController::class, 'store'])->name('store');
     Route::patch("/users/{user}", [UserController::class, 'update'])->name('update');
     Route::delete("/users/{user}", [UserController::class, 'destroy'])->name('destroy');
 });
