@@ -15,8 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        $users =  User::query()->get();
         return new JsonResponse([
-            'data' => 'hello'
+            'data' => $users
         ]);
     }
 
