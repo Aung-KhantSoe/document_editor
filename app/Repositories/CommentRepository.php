@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Comment;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\GeneralJsonException;
 
 class CommentRepository extends BaseRepository
 {
@@ -25,11 +26,7 @@ class CommentRepository extends BaseRepository
                 'user_id' => data_get($attributes,'user_id',$comment->user_id),
                 'post_id' => data_get($attributes,'post_id',$comment->post_id),
             ]);
-            if(!$updated){
-                throw new \Exception("Failed to update comment", 1);
-                
-            }
-            
+           throw_if(!$updated,GeneralJsonException::class,'Failed to update comment');    
             return $comment;
         });
         
@@ -37,9 +34,7 @@ class CommentRepository extends BaseRepository
     public function forceDelete($comment){
         return DB::transaction(function () use ($comment) {
             $deleted = $comment->forceDelete();
-            if(!$deleted){
-                throw new \Exception("Failed to delete comment", 1); 
-            }
+            throw_if(!$deleted,GeneralJsonException::class,'Failed to delete comment');
             return $deleted;
         });
 
