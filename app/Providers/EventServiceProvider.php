@@ -2,10 +2,15 @@
 
 namespace App\Providers;
 
+use App\Listeners\SendWelcomeEmail;
+use App\Events\Post\PostCreatedEvent;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use App\Subscribers\Post\PostSubscriber;
+use App\Subscribers\User\UserSubscriber;
+use App\Subscribers\Comment\CommentSubscriber;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,6 +25,11 @@ class EventServiceProvider extends ServiceProvider
         ],
     ];
 
+    protected $subscribe = [
+        UserSubscriber::class,
+        PostSubscriber::class,
+        CommentSubscriber::class,
+    ];
     /**
      * Register any events for your application.
      *
