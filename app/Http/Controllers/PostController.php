@@ -21,8 +21,6 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        event(new PostCreatedEvent(Post::factory()->make()));
         $page_size = $request->page_size??20;
         $posts = Post::query()->paginate($page_size);
         return PostResource::collection($posts);

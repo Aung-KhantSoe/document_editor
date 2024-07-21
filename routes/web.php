@@ -1,5 +1,8 @@
 <?php
 
+use App\Mail\WelcomeMail;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,5 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
+// Route::get('/playground', function () {
+//     $user = User::factory()->make();
+//     Mail::to($user->email)->send(new WelcomeMail($user));
+//     return null;
+// });
 
 require __DIR__.'/auth.php';
+
